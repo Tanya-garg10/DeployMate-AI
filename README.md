@@ -1,4 +1,10 @@
 # DeployMate AI 🚀
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)
+![React](https://img.shields.io/badge/React-19-61DAFB.svg)
+
 ### AI-Powered Intelligent Application Deployment & Troubleshooting Agent
 
 > **Project:** Intelligent Multi-Agent Cloud Deployment Pipeline  
@@ -37,24 +43,24 @@ graph TD
 
 ### Logical Agent Breakdown
 
-1. **Code Analysis Agent** (`server/agents/code_analysis_agent.ts` & `backend/agents/code_analysis_agent.py`)
+1. **Code Analysis Agent** (`server/agents/code_analysis_agent.ts`)
    - Deeply inspects repository trees, `package.json`, `requirements.txt`, `pyproject.toml`, `.env.example`, `Dockerfile`, and configuration files.
    - Detects frameworks (FastAPI, Next.js, React/Vite, Node.js, Django, Flask), package managers (`pip`, `npm`, `pnpm`, `bun`), port mappings, and required environment variables.
-   - Computes a deterministic confidence rating based on source-code ground truth combined with Gemini 3.7 semantic code reasoning.
+   - Computes a deterministic confidence rating based on source-code ground truth combined with AI semantic code reasoning.
 
-2. **Infrastructure Agent** (`server/agents/infrastructure_agent.ts` & `backend/agents/infrastructure_agent.py`)
+2. **Infrastructure Agent** (`server/agents/infrastructure_agent.ts`)
    - Designs multi-tier cloud topologies (Frontend, Backend API, Zerops Managed PostgreSQL / Redis).
    - Generates CPU, RAM, and scaling recommendations with DevOps justifications.
 
-3. **Zerops Agent** (`server/agents/zerops_agent.ts` & `backend/agents/zerops_agent.py`)
+3. **Zerops Agent** (`server/agents/zerops_agent.ts`)
    - Generates valid, production-ready `zerops.yml` configurations with multi-stage build caching, deploy files, environment variables, and HTTP health check endpoints.
 
-4. **Deployment & Telemetry Service** (`server/services/zerops_service.ts` & `backend/services/zerops_service.py`)
+4. **Deployment & Telemetry Service** (`server/services/zerops_service.ts`)
    - Manages container lifecycle states: `QUEUED` → `BUILDING` → `DEPLOYING` → `RUNNING` / `FAILED` → `RECOVERING`.
    - Streams color-coded terminal logs and health probes.
 
-5. **Debug Agent (Killer Feature)** (`server/agents/debug_agent.ts` & `backend/agents/debug_agent.py`)
-   - Evaluates failed runtime logs, container exit codes, and architecture context using Gemini 3.7.
+5. **Debug Agent (Killer Feature)** (`server/agents/debug_agent.ts`)
+   - Evaluates failed runtime logs, container exit codes, and architecture context using AI.
    - Identifies root causes (e.g. missing `DATABASE_URL`, `127.0.0.1` vs `0.0.0.0` ingress binding, missing package dependencies).
    - Formulates concrete configuration patches and triggers **1-Click Auto-Remediation**.
 
@@ -63,8 +69,8 @@ graph TD
 ## ⚡ Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons, Motion, Canvas-Confetti
-- **Backend:** Express & Node.js (Full-stack Server with tsx and Vite middleware) + FastAPI / Python 3.12 reference implementation
-- **AI Engine:** Google Gemini 3.7 Flash via `@google/genai`
+- **Backend:** Express & Node.js (Full-stack Server with tsx and Vite middleware)
+- **AI Engine:** Google Gemini via `@google/genai`
 - **Target Cloud Infrastructure:** [Zerops](https://zerops.io) (`zerops.yml`, Zerops API/CLI integration)
 - **Database:** Zerops Managed PostgreSQL 16
 - **Repository Integration:** GitHub REST API v3
@@ -75,7 +81,6 @@ graph TD
 
 ### Prerequisites
 - Node.js >= 20.x
-- Python 3.12 (optional, for standalone FastAPI backend)
 - Gemini API Key (`GEMINI_API_KEY`)
 
 ### 1. Installation
@@ -108,7 +113,46 @@ The application will be accessible at `http://localhost:3000`.
 
 ---
 
-## 🚀 Zerops Production Deployment
+## � Project Structure
+
+```
+DeployMate-AI/
+├── src/                          # Frontend React application
+│   ├── components/               # UI components
+│   │   ├── AiDiagnosisView.tsx
+│   │   ├── DeploymentMonitor.tsx
+│   │   ├── InfrastructurePlanner.tsx
+│   │   ├── Navbar.tsx
+│   │   └── ...
+│   ├── services/                # API client services
+│   ├── types.ts                  # TypeScript type definitions
+│   └── main.tsx                  # Entry point
+├── server/                       # Backend Node.js/Express server
+│   ├── agents/                   # AI agents
+│   │   ├── code_analysis_agent.ts
+│   │   ├── debug_agent.ts
+│   │   ├── infrastructure_agent.ts
+│   │   └── zerops_agent.ts
+│   ├── services/                 # Backend services
+│   │   ├── ai_service.ts
+│   │   ├── github_service.ts
+│   │   └── zerops_service.ts
+│   └── api/                      # API routes
+│       └── routes.ts
+├── backend/                      # Python FastAPI reference implementation
+│   ├── main.py
+│   ├── models/
+│   └── requirements.txt
+├── public/                       # Static assets
+├── package.json                  # Node.js dependencies
+├── tsconfig.json                 # TypeScript configuration
+├── vite.config.ts                # Vite build configuration
+└── zerops.yml                    # Zerops deployment configuration
+```
+
+---
+
+## � Zerops Production Deployment
 
 DeployMate AI includes pre-configured `zerops.yml` files for deploying directly to Zerops:
 
@@ -162,18 +206,18 @@ zerops:
 
 ---
 
-## 🎯 Step-by-Step Judge Demo Workflow
+## 🎯 Demo Workflow
 
-To verify the complete functionality during the hackathon evaluation:
+To verify the complete functionality:
 
 1. **Launch App**: Open the dashboard at `http://localhost:3000`.
-2. **Select / Input Repository**: Click the preset `DeployMate AI (Hackathon Project)` or paste `https://github.com/Tanya-garg10/DeployMate-AI`.
-3. **Analyze**: Click **[ Analyze Project ]**. The **Code Analysis Agent** will inspect the manifest, identify `FastAPI + Python + PostgreSQL`, detect ports, and show confidence metrics.
-4. **Plan & YAML**: Click **[ Generate Zerops Topology ]**. Review the visual topology graph (API → PostgreSQL) and inspect the generated `zerops.yml`.
-5. **Simulate Error**: In the Top Demo Bar, click **[ 2. Missing DATABASE_URL Error & AI Recovery ]** and deploy.
-6. **Observe Failure**: Watch the terminal console log stream until `Health check failed` (Exit status 1).
-7. **AI Diagnosis (Killer Feature)**: Click **[ View AI Diagnosis & Auto-Fix ]**. The **Debug Agent** will identify the exact missing environment variable, impact, and severity with a 96%+ confidence score.
-8. **Auto-Remediate & Redeploy**: Click **[ Apply Fix & Redeploy ]**. The agent auto-injects the credentials, regenerates the verified config, rebuilds the container, and achieves a **Health check HTTP 200 OK** live status!
+2. **Select Repository**: Click the preset `DeployMate AI (Hackathon Project)` or paste any GitHub repository URL.
+3. **Analyze**: Click **[ Analyze Project ]**. The **Code Analysis Agent** will inspect the repository, detect the tech stack, ports, and environment variables.
+4. **Generate Plan**: Click **[ Generate Zerops Topology ]**. Review the visual topology graph and the generated `zerops.yml` configuration.
+5. **Deploy**: Click **[ Deploy to Zerops ]** to start the deployment process.
+6. **Monitor**: Watch the real-time deployment logs and health checks in the deployment monitor.
+7. **Debug (if needed)**: If deployment fails, click **[ View AI Diagnosis ]** to get root cause analysis and auto-fix suggestions.
+8. **Auto-Remediate**: Click **[ Apply Fix & Redeploy ]** to automatically apply the suggested fixes and redeploy.
 
 ---
 
