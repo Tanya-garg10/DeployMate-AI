@@ -11,8 +11,6 @@
 > **Repository:** [Tanya-garg10/DeployMate-AI](https://github.com/Tanya-garg10/DeployMate-AI)  
 > **Infrastructure Platform:** [Zerops](https://zerops.io)
 
----
-
 ## 💡 Executive Summary & Core Idea
 
 Deploying modern cloud applications across microservices, databases, and container runtimes remains error-prone and developer-intensive. Configuration drift, missing environment variables, port mismatches, and ambiguous runtime logs often cause deployments to fail at runtime.
@@ -22,8 +20,6 @@ Deploying modern cloud applications across microservices, databases, and contain
 $$\text{PLAN} \longrightarrow \text{ACT} \longrightarrow \text{OBSERVE} \longrightarrow \text{DIAGNOSE} \longrightarrow \text{RECOVER}$$
 
 From analyzing public or private GitHub repositories to provisioning Zerops infrastructure, generating optimized `zerops.yml` specifications, streaming live container telemetry, and performing root-cause remediation, DeployMate AI delivers a production-grade experience for developers and DevOps engineers.
-
----
 
 ## 🏗 Multi-Agent Architecture
 
@@ -64,8 +60,6 @@ graph TD
    - Identifies root causes (e.g. missing `DATABASE_URL`, `127.0.0.1` vs `0.0.0.0` ingress binding, missing package dependencies).
    - Formulates concrete configuration patches and triggers **1-Click Auto-Remediation**.
 
----
-
 ## ⚡ Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons, Motion, Canvas-Confetti
@@ -74,8 +68,6 @@ graph TD
 - **Target Cloud Infrastructure:** [Zerops](https://zerops.io) (`zerops.yml`, Zerops API/CLI integration)
 - **Database:** Zerops Managed PostgreSQL 16
 - **Repository Integration:** GitHub REST API v3
-
----
 
 ## 🛠 Local Setup & Running
 
@@ -110,8 +102,6 @@ GITHUB_TOKEN=""          # Optional: GitHub token for higher API rate limits
 npm run dev
 ```
 The application will be accessible at `http://localhost:3000`.
-
----
 
 ## � Project Structure
 
@@ -206,8 +196,6 @@ zerops:
           path: /health
 ```
 
----
-
 ## 📡 REST API Reference
 
 | Endpoint | Method | Description |
@@ -223,8 +211,6 @@ zerops:
 | `/api/deployments/:id/diagnose`| `POST` | Triggers AI Debug Agent to diagnose root-cause on failed deployment |
 | `/api/deployments/:id/apply-fix`| `POST` | Applies AI recommended fix, patches config, and executes auto-redeploy |
 
----
-
 ## 🎯 Demo Workflow
 
 To verify the complete functionality:
@@ -238,15 +224,11 @@ To verify the complete functionality:
 7. **Debug (if needed)**: If deployment fails, click **[ View AI Diagnosis ]** to get root cause analysis and auto-fix suggestions.
 8. **Auto-Remediate**: Click **[ Apply Fix & Redeploy ]** to automatically apply the suggested fixes and redeploy.
 
----
-
 ## 🔒 Security & Best Practices
 
 - **Zero Client-Side Secrets**: All Gemini API keys, GitHub tokens, and Zerops credentials remain strictly server-side.
 - **Safe Command Safeguards**: No arbitrary shell command injection is allowed.
 - **Explicit Mode Indicator**: The UI strictly separates Live Zerops deployments from Simulated Test Sandboxes.
-
----
 
 ## 🌟 Future Scope
 
