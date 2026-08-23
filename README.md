@@ -152,7 +152,26 @@ DeployMate-AI/
 
 ---
 
-## � Zerops Production Deployment
+## 🚀 Deployment Options
+
+### Option 1: Render (Recommended - Free Tier)
+
+DeployMate AI can be deployed to Render with free tier:
+
+1. **Create Render account:** https://render.com
+2. **Create new Web Service**
+3. **Connect GitHub repository:** `Tanya-garg10/DeployMate-AI`
+4. **Configure settings:**
+   - Build Command: `npm run build`
+   - Start Command: `npm start`
+   - Environment Variables:
+     - `GEMINI_API_KEY`: Your Gemini API key
+     - `ZEROPS_API_TOKEN`: Optional
+     - `GITHUB_TOKEN`: Optional
+     - `NODE_ENV`: `production`
+5. **Deploy** - Render will automatically detect the `render.yaml` configuration
+
+### Option 2: Zerops Production Deployment
 
 DeployMate AI includes pre-configured `zerops.yml` files for deploying directly to Zerops:
 

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: deploymate-ai
+    env: node
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ZEROPS_API_TOKEN
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /health
