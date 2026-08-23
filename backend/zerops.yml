@@ -1,0 +1,26 @@
+zerops:
+  # DeployMate AI - Python Backend Service for Zerops
+  - setup: backend
+    build:
+      base: python@3.12
+      buildCommands:
+        - pip install -r backend/requirements.txt
+      deployFiles:
+        - backend
+      cache:
+        - /root/.cache/pip
+    run:
+      base: python@3.12
+      ports:
+        - port: 8000
+          httpSupport: true
+      envVariables:
+        GEMINI_API_KEY: "${geminiApiKey}"
+        ZEROPS_API_TOKEN: "${zeropsApiToken}"
+        GITHUB_TOKEN: "${githubToken}"
+        PORT: 8000
+      start: uvicorn main:app --host 0.0.0.0 --port 8000
+      healthCheck:
+        httpGet:
+          port: 8000
+          path: /health

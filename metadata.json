@@ -1,0 +1,7 @@
+{
+  "name": "DeployMate AI",
+  "description": "AI-Powered Intelligent Application Deployment & Troubleshooting Agent for Zerops",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

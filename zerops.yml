@@ -1,0 +1,32 @@
+zerops:
+  # DeployMate AI - Zerops Production Deployment Specification
+  # Project: DeployMate-AI
+  # NioHack 2026 Theme 6
+  - setup: app
+    build:
+      base: nodejs@20
+      buildCommands:
+        - npm ci
+        - npm run build
+      deployFiles:
+        - dist
+        - package.json
+        - package-lock.json
+        - node_modules
+      cache:
+        - node_modules
+    run:
+      base: nodejs@20
+      ports:
+        - port: 3000
+          httpSupport: true
+      envVariables:
+        GEMINI_API_KEY: "${geminiApiKey}"
+        ZEROPS_API_TOKEN: "${zeropsApiToken}"
+        GITHUB_TOKEN: "${githubToken}"
+        NODE_ENV: "production"
+      start: node dist/server.cjs
+      healthCheck:
+        httpGet:
+          port: 3000
+          path: /health
